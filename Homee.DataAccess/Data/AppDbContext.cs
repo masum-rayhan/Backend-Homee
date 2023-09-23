@@ -8,4 +8,8 @@ namespace Homee.DataAccess.Data;
 
 public class AppDbContext
 {
+    public AppDbContext()
+    {
+        
+    }
 }

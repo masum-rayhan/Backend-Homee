@@ -8,4 +8,5 @@ namespace Homee.DataAccess.Repository.IRepository;
 
 public interface IUnitOfWork
 {
+    Task SaveAsync();
 }

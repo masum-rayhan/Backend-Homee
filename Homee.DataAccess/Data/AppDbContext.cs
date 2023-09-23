@@ -1,4 +1,5 @@
-﻿using Homee.Models.Auth;
+﻿using Homee.Models;
+using Homee.Models.Auth;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,4 +12,5 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         
     }
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public DbSet<Device> Devices { get; set; }
 }

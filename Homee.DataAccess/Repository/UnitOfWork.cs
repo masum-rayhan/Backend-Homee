@@ -18,6 +18,8 @@ public class UnitOfWork : IUnitOfWork
 
     public IDeviceRepo Devices => new DeviceRepo(_db);
 
+    public IDeviceStateRepo DeviceStates => new DeviceStateRepo(_db);
+
     public async Task SaveAsync()
     {
         await _db.SaveChangesAsync();

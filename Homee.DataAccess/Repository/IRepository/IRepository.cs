@@ -12,7 +12,7 @@ public interface IRepository<T> where T : class
     Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter);
     Task AddAsync(T entity);
     Task<T> GetDetailsAsync(int id);
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<IEnumerable<T>> GetAllAsync(string? includeProperties = null);
     Task UpdateAsync(T entity);
     void RemoveAsync(T entity);
     void RemoveRangeAsync(IEnumerable<T> entities);

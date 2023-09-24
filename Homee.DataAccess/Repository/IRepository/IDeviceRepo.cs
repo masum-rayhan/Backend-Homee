@@ -1,5 +1,5 @@
 ﻿using Homee.Models;
-using Homee.Models.Dto;
+using Homee.Models.Dto.DeviceDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Homee.DataAccess.Repository.IRepository;
 
 public interface IDeviceRepo : IRepository<Device>
 {
-    Task<Device> CreateDevicesAsync(DevicesCreateDTO devicesCreateDTO);
-    Task<Device> UpdateDevicesAsync(int id, DevicesUpdateDTO devicesUpdateDTO);
+    Task<Device> CreateDevicesAsync(DeviceCreateDTO devicesCreateDTO);
+    Task<Device> UpdateDevicesAsync(int id, DeviceUpdateDTO devicesUpdateDTO);
     Task<bool> DeleteDevicesAsync(int id);
 }

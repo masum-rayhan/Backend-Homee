@@ -6,12 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Homee.Models;
+namespace Homee.Models.Dto.DeviceStateDTO;
 
-public class DeviceState
+public class DeviceStateCreateDTO
 {
-    [Key]
-    public int Id { get; set; }
+    //[Required]
     public int DeviceId { get; set; }
     [ForeignKey("DeviceId")]
     public Device? Device { get; set; }

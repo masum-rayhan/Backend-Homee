@@ -1,5 +1,5 @@
 ﻿using Homee.DataAccess.Repository.IRepository;
-using Homee.Models.Dto;
+using Homee.Models.Dto.DeviceDTO;
 using Homee.Models.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -26,8 +26,9 @@ public class DeviceController : ControllerBase
     {
         try
         {
-            _response.Result = await _unitOfWork.Devices.GetAllAsync();
-            _response.StatusCode = System.Net.HttpStatusCode.OK;
+            //var includedProperties = "DeviceStates";
+            _response.Result = await _unitOfWork.Devices.GetAllAsync(includeProperties: "DeviceStates");
+            _response.StatusCode = HttpStatusCode.OK;
 
             return Ok(_response);
         }
@@ -69,7 +70,7 @@ public class DeviceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<ApiResponse>> CreateDevices([FromForm] DevicesCreateDTO devicesCreateDTO)
+    public async Task<ActionResult<ApiResponse>> CreateDevices([FromForm] DeviceCreateDTO devicesCreateDTO)
     {
         try
         {
@@ -103,7 +104,7 @@ public class DeviceController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<ApiResponse>> UpdateDevice(int id, [FromForm] DevicesUpdateDTO devicesUpdateDTO)
+    public async Task<ActionResult<ApiResponse>> UpdateDevice(int id, [FromForm] DeviceUpdateDTO devicesUpdateDTO)
     {
         try
         {

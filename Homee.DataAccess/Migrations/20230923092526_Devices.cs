@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Homee.Models.Dto.DeviceDTO;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -31,6 +32,11 @@ namespace Homee.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Devices");
+        }
+
+        public static object Select(Func<object, DeviceCreateDTO> value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

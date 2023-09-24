@@ -1,7 +1,7 @@
 ﻿using Homee.DataAccess.Data;
 using Homee.DataAccess.Repository.IRepository;
 using Homee.Models;
-using Homee.Models.Dto;
+using Homee.Models.Dto.DeviceDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,12 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
         _db = db;
     }
 
-    public async Task<Device> CreateDevicesAsync(DevicesCreateDTO devicesCreateDTO)
+    public async Task<Device> CreateDevicesAsync(DeviceCreateDTO devicesCreateDTO)
     {
         try
         {
             if (devicesCreateDTO == null)
-            {
                 throw new ArgumentNullException(nameof(devicesCreateDTO));
-            }
 
             Device devicesToCreate = new Device
             {
@@ -44,7 +42,7 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
         }
     }
 
-    public async Task<Device> UpdateDevicesAsync(int id, DevicesUpdateDTO devicesUpdateDTO)
+    public async Task<Device> UpdateDevicesAsync(int id, DeviceUpdateDTO devicesUpdateDTO)
     {
         try
         {
@@ -72,16 +70,16 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
     {
         try
         {
-            if(id == 0)
-                throw new ArgumentException("Invalid data"); 
-            
+            if (id == 0)
+                throw new ArgumentException("Invalid data");
+
             Device devicesToDelete = await _db.Devices.FindAsync(id);
 
             _db.Devices.Remove(devicesToDelete);
             await _db.SaveChangesAsync();
 
             return true;
-        } 
+        }
         catch (Exception ex)
         {
             throw new InvalidOperationException("Failed to Remove Device.", ex);

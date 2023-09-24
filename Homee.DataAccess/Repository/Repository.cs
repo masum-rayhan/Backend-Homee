@@ -32,10 +32,17 @@ public class Repository<T> : IRepository<T> where T : class
         await dbSet.AddAsync(entity);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
-        return await query.ToListAsync();
+        if (includeProperties != null)
+        {
+            foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProp);
+            }
+        }
+        return query.ToList();
     }
 
     public async Task<T> GetDetailsAsync(int id)

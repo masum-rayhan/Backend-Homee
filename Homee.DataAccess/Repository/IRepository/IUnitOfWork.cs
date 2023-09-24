@@ -11,4 +11,5 @@ public interface IUnitOfWork
     Task SaveAsync();
 
     IDeviceRepo Devices { get; }
+    IDeviceStateRepo DeviceStates { get; }
 }

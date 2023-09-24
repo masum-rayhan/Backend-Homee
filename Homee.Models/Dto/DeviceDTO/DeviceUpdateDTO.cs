@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Homee.Models.Dto;
+namespace Homee.Models.Dto.DeviceDTO;
 
-public class DevicesUpdateDTO
+public class DeviceUpdateDTO
 {
     [Key]
     public int Id { get; set; }

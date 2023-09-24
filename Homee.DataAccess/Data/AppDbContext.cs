@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     }
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<Device> Devices { get; set; }
+    public DbSet<DeviceState> DeviceStates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

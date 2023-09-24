@@ -11,14 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers()
-    //.AddJsonOptions(options =>
-    //{
-    //    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    //    options.JsonSerializerOptions.WriteIndented = true;
-    //    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; // Add this line
-    //});
     .AddNewtonsoftJson(
-    op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+        op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();

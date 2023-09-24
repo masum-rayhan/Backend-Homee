@@ -10,5 +10,5 @@ public interface IUnitOfWork
 {
     Task SaveAsync();
 
-    IDeviceRepo Device { get; }
+    IDeviceRepo Devices { get; }
 }

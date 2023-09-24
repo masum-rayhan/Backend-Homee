@@ -49,7 +49,7 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
         try
         {
             if (devicesUpdateDTO == null || id != devicesUpdateDTO.Id)
-                throw new ArgumentNullException(nameof(devicesUpdateDTO));
+                throw new ArgumentException(nameof(devicesUpdateDTO));
 
             Device devicesToUpdate = await _db.Devices.FindAsync(id);
 

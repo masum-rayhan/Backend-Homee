@@ -16,7 +16,7 @@ public class UnitOfWork : IUnitOfWork
         _db = db;
     }
 
-    public IDeviceRepo Device => new DeviceRepo(_db);
+    public IDeviceRepo Devices => new DeviceRepo(_db);
 
     public async Task SaveAsync()
     {

@@ -70,7 +70,7 @@ public class DeviceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<ApiResponse>> CreateDevices([FromForm] DeviceCreateDTO devicesCreateDTO)
+    public async Task<ActionResult<ApiResponse>> CreateDevices([FromBody] DeviceCreateDTO devicesCreateDTO)
     {
         try
         {

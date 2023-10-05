@@ -14,4 +14,5 @@ public class DeviceCreateDTO
     [Required]
     public string DeviceType { get; set; }
     public string Location { get; set; }
+    public virtual ICollection<DeviceState>? DeviceStates { get; set; }
 }

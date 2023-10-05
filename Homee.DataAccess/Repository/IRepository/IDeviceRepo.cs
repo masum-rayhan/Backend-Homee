@@ -11,7 +11,7 @@ namespace Homee.DataAccess.Repository.IRepository;
 
 public interface IDeviceRepo : IRepository<Device>
 {
-    Task<Device> CreateDevicesAsync(DeviceCreateDTO devicesCreateDTO);
+    Task<Device> CreateDeviceAsync(DeviceCreateDTO deviceCreateDTO);
     Task<Device> UpdateDevicesAsync(int id, DeviceUpdateDTO devicesUpdateDTO);
     Task<bool> DeleteDevicesAsync(int id);
 

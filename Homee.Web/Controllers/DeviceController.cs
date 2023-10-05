@@ -76,7 +76,7 @@ public class DeviceController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var createdDevice = await _unitOfWork.Devices.CreateDevicesAsync(devicesCreateDTO);
+                var createdDevice = await _unitOfWork.Devices.CreateDeviceAsync(devicesCreateDTO);
 
                 if(createdDevice != null)
                 {

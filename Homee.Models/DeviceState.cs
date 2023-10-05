@@ -16,5 +16,7 @@ public class DeviceState
     [ForeignKey("DeviceId")]
     public Device? Device { get; set; }
     public string StateType { get; set; }
+    [Required]
+    public  bool State { get; set; } = false;
     public string Value { get; set; }
 }

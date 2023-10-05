@@ -1,5 +1,6 @@
 ﻿using Homee.DataAccess.Data;
 using Homee.DataAccess.Repository.IRepository;
+using Homee.DataAccess.Utils;
 using Homee.Models;
 using Homee.Models.Dto.DeviceDTO;
 using Homee.Models.Utils;
@@ -20,23 +21,46 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
         _db = db;
     }
 
-    public async Task<Device> CreateDevicesAsync(DeviceCreateDTO devicesCreateDTO)
+    public async Task<Device> CreateDeviceAsync(DeviceCreateDTO deviceCreateDTO)
     {
         try
         {
-            if (devicesCreateDTO == null)
-                throw new ArgumentNullException(nameof(devicesCreateDTO));
+            if (deviceCreateDTO == null)
+                throw new ArgumentNullException(nameof(deviceCreateDTO));
 
-            Device devicesToCreate = new Device
+            // Convert the DeviceType string to the corresponding enum value
+            if (!Enum.TryParse(deviceCreateDTO.DeviceType, out DeviceType deviceType))
             {
-                Name = devicesCreateDTO.Name,
-                DeviceType = devicesCreateDTO.DeviceType.ToString(), // Convert enum to string
-                Location = devicesCreateDTO.Location
+                throw new ArgumentException("Invalid DeviceType.");
+            }
+
+            // Get the initial state attributes based on the selected device type
+            var (initialDeviceStateType, initialDeviceState, initialValue) = DeviceTypeService.GetInitialDeviceState(deviceType);
+
+            // Create the new Device entity
+            var newDevice = new Device
+            {
+                Name = deviceCreateDTO.Name,
+                DeviceType = deviceCreateDTO.DeviceType,
+                Location = deviceCreateDTO.Location
             };
-            _db.Devices.Add(devicesToCreate);
+
+            // Create the new DeviceState entity for the initial state
+            var newDeviceState = new DeviceState
+            {
+                StateType = initialDeviceStateType,
+                State = initialDeviceState,
+                Value = initialValue
+            };
+
+            // Associate the DeviceState with the Device
+            newDevice.DeviceStates = new List<DeviceState> { newDeviceState };
+
+            // Add both the Device and DeviceState to the database
+            _db.Devices.Add(newDevice);
             await _db.SaveChangesAsync();
 
-            return devicesToCreate;
+            return newDevice;
         }
         catch (Exception ex)
         {

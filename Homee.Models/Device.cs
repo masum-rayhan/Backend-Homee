@@ -16,5 +16,5 @@ public class Device
     public string Name { get; set; }
     public string DeviceType { get; set; }
     public string Location { get; set; }
-    public ICollection<DeviceState>? DeviceStates { get; set; }
+    public virtual ICollection<DeviceState>? DeviceStates { get; set; }
 }

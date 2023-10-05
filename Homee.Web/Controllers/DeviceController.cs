@@ -169,4 +169,35 @@ public class DeviceController : ControllerBase
 
         return Ok(_response);
     }
+
+    [HttpGet("device-types")]
+    public IActionResult GetDeviceTypes()
+    {
+        try
+        {
+            var deviceTypes = _unitOfWork.Devices.GetDeviceTypes();
+
+            if (deviceTypes != null)
+            {
+                _response.Result = deviceTypes;
+                _response.StatusCode = HttpStatusCode.OK;
+
+                return Ok(_response);
+            }
+            else
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.ErrorMessages = new List<string> { "Device types not found" };
+
+                return NotFound(_response);
+            }
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.ErrorMessages = new List<string> { ex.ToString() };
+        }
+        return Ok(_response);
+    }
 }

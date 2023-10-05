@@ -2,8 +2,10 @@
 using Homee.DataAccess.Repository.IRepository;
 using Homee.Models;
 using Homee.Models.Dto.DeviceDTO;
+using Homee.Models.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
             Device devicesToCreate = new Device
             {
                 Name = devicesCreateDTO.Name,
-                DeviceType = devicesCreateDTO.DeviceType,
+                DeviceType = devicesCreateDTO.DeviceType.ToString(), // Convert enum to string
                 Location = devicesCreateDTO.Location
             };
             _db.Devices.Add(devicesToCreate);
@@ -52,7 +54,7 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
             Device devicesToUpdate = await _db.Devices.FindAsync(id);
 
             devicesToUpdate.Name = devicesUpdateDTO.Name;
-            devicesToUpdate.DeviceType = devicesUpdateDTO.DeviceType;
+            devicesToUpdate.DeviceType = devicesUpdateDTO.DeviceType.ToString(); // Convert enum to string
             devicesToUpdate.Location = devicesUpdateDTO.Location;
 
             _db.Devices.Update(devicesToUpdate);
@@ -84,5 +86,32 @@ public class DeviceRepo : Repository<Device>, IDeviceRepo
         {
             throw new InvalidOperationException("Failed to Remove Device.", ex);
         }
+    }
+
+    public IEnumerable<DeviceTypeDto> GetDeviceTypes()
+    {
+        var deviceTypes = Enum.GetValues(typeof(DeviceType)).Cast<DeviceType>();
+
+        var deviceTypeDtos = deviceTypes.Select(deviceType => new DeviceTypeDto
+        {
+            Value = deviceType.ToString(),
+            DisplayName = GetEnumDisplayName(deviceType)
+        });
+
+        return deviceTypeDtos;
+    }
+
+    private string GetEnumDisplayName(Enum enumValue)
+    {
+        var enumType = enumValue.GetType();
+        var enumName = enumValue.ToString();
+
+        var displayAttribute = enumType
+            .GetField(enumName)
+            .GetCustomAttributes(typeof(DisplayAttribute), false)
+            .Cast<DisplayAttribute>()
+            .SingleOrDefault();
+
+        return displayAttribute?.Name ?? enumName;
     }
 }

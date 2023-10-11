@@ -43,12 +43,31 @@ public class DeviceStateRepo : Repository<DeviceState>, IDeviceStateRepo
         }
     }
 
-    public Task<bool> DeleteDevicesStateAsync(int id)
+    public async Task<DeviceState> UpdateDevicesStateAsync(int id, DeviceStateUpdateDTO deviceStateUpdateDTO)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (deviceStateUpdateDTO == null)
+                throw new ArgumentNullException(nameof(deviceStateUpdateDTO));
+
+            var stateToUpdate = await _db.DeviceStates.FindAsync(id);
+
+            if (stateToUpdate == null)
+                throw new InvalidOperationException("Device State Not Found.");
+
+            stateToUpdate.StateType = deviceStateUpdateDTO.StateType;
+            stateToUpdate.Value = deviceStateUpdateDTO.Value;
+
+            await _db.SaveChangesAsync();
+            return stateToUpdate;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Failed to Update Device State.", ex);
+        }
     }
 
-    public Task<DeviceState> UpdateDevicesStateAsync(int id, DeviceStateUpdateDTO deviceStateUpdateDTO)
+    public Task<bool> DeleteDevicesStateAsync(int id)
     {
         throw new NotImplementedException();
     }

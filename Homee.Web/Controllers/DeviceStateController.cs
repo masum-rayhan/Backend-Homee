@@ -56,6 +56,48 @@ namespace Homee.Web.Controllers
                 _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return Ok(_response);
-        }   
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDeviceState(int Id, [FromBody] DeviceStateUpdateDTO deviceStateUpdateDTO)
+        {
+            try
+            {
+                if (deviceStateUpdateDTO == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.ErrorMessages = new List<string> { "Invalid payload" };
+
+                    return BadRequest(_response);
+                }
+
+                var stateToUpdate = await _unitOfWork.DeviceStates.UpdateDevicesStateAsync(Id, deviceStateUpdateDTO);
+
+                if (stateToUpdate == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.ErrorMessages = new List<string> { "Failed to update device state" };
+
+                    return BadRequest(_response);
+                }
+                else
+                {
+                    _response.Result = stateToUpdate;
+                    _response.StatusCode = HttpStatusCode.OK;
+
+                    return Ok(_response);
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages = new List<string> { ex.ToString() };
+            }
+
+            return Ok(_response);
+        }
     }
 }

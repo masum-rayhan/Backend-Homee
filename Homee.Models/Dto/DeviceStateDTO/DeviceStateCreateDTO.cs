@@ -15,5 +15,7 @@ public class DeviceStateCreateDTO
     [ForeignKey("DeviceId")]
     public Device? Device { get; set; }
     public string StateType { get; set; }
+    [Required]
+    public bool State { get; set; }
     public string Value { get; set; }
 }

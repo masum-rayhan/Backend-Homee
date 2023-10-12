@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Homee.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231005213144_add state at DeviceState")]
-    partial class addstateatDeviceState
+    [Migration("20231011232728_DeviceState")]
+    partial class DeviceState
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -50,12 +50,10 @@ public class DeviceStateRepo : Repository<DeviceState>, IDeviceStateRepo
             if (deviceStateUpdateDTO == null)
                 throw new ArgumentNullException(nameof(deviceStateUpdateDTO));
 
-            var stateToUpdate = await _db.DeviceStates.FindAsync(id);
-
-            if (stateToUpdate == null)
-                throw new InvalidOperationException("Device State Not Found.");
+            var stateToUpdate = await _db.DeviceStates.FindAsync(id) ?? throw new InvalidOperationException("Device State Not Found.");
 
             stateToUpdate.StateType = deviceStateUpdateDTO.StateType;
+            stateToUpdate.State = deviceStateUpdateDTO.State;
             stateToUpdate.Value = deviceStateUpdateDTO.Value;
 
             await _db.SaveChangesAsync();

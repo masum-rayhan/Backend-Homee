@@ -58,8 +58,8 @@ namespace Homee.Web.Controllers
             return Ok(_response);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDeviceState(int Id, [FromBody] DeviceStateUpdateDTO deviceStateUpdateDTO)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateDeviceState(int id, [FromBody] DeviceStateUpdateDTO deviceStateUpdateDTO)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Homee.Web.Controllers
                     return BadRequest(_response);
                 }
 
-                var stateToUpdate = await _unitOfWork.DeviceStates.UpdateDevicesStateAsync(Id, deviceStateUpdateDTO);
+                var stateToUpdate = await _unitOfWork.DeviceStates.UpdateDevicesStateAsync(id, deviceStateUpdateDTO);
 
                 if (stateToUpdate == null)
                 {

@@ -7,10 +7,11 @@ public class DeviceStateUpdateDTO
 {
     [Key]
     public int Id { get; set; }
-    [Required]
     public int DeviceId { get; set; }
     [ForeignKey("DeviceId")]
-    public Device Device { get; set; }
+    public Device? Device { get; set; }
     public string StateType { get; set; }
+    [Required]
+    public bool State { get; set; }
     public string Value { get; set; }
 }

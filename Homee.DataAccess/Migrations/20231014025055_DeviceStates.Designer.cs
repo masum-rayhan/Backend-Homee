@@ -4,6 +4,7 @@ using Homee.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Homee.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231014025055_DeviceStates")]
+    partial class DeviceStates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,7 +305,7 @@ namespace Homee.DataAccess.Migrations
             modelBuilder.Entity("Homee.Models.Device", b =>
                 {
                     b.HasOne("Homee.Models.Room", "Room")
-                        .WithMany("Devices")
+                        .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -313,7 +316,7 @@ namespace Homee.DataAccess.Migrations
             modelBuilder.Entity("Homee.Models.DeviceState", b =>
                 {
                     b.HasOne("Homee.Models.Device", "Device")
-                        .WithMany("DeviceStates")
+                        .WithMany()
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -370,16 +373,6 @@ namespace Homee.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Homee.Models.Device", b =>
-                {
-                    b.Navigation("DeviceStates");
-                });
-
-            modelBuilder.Entity("Homee.Models.Room", b =>
-                {
-                    b.Navigation("Devices");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,5 +13,5 @@ public class Room
     [Key]
     public int Id { get; set; }
     public string RoomName { get; set; }
-    //public virtual ICollection<Device>? Devices { get; set; }
+    public virtual ICollection<Device>? Devices { get; set; }
 }

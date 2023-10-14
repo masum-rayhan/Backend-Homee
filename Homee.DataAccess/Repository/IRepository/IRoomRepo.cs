@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Homee.DataAccess.Repository.IRepository;
 
-public interface IRoomRepo
+public interface IRoomRepo : IRepository<Room>
 {
     Task<Room> CreateRoomAsync(RoomCreateDTO roomCreateDTO);
 }

@@ -26,7 +26,6 @@ public class DeviceController : ControllerBase
     {
         try
         {
-            //var includedProperties = "DeviceStates";
             _response.Result = await _unitOfWork.Devices.GetAllAsync(includeProperties: "DeviceStates");
             _response.StatusCode = HttpStatusCode.OK;
 

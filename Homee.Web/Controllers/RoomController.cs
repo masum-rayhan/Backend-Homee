@@ -20,6 +20,25 @@ public class RoomController : ControllerBase
         _unitOfWork = unitOfWork;
     }
 
+    [HttpGet]
+    public async Task <ActionResult<ApiResponse>> GetRooms()
+    {
+        try
+        {
+            _response.Result = await _unitOfWork.Rooms.GetAllAsync(includeProperties: "Devices");
+            _response.StatusCode = HttpStatusCode.OK;
+            return _response;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.StatusCode = HttpStatusCode.BadRequest;
+            _response.ErrorMessages = new List<string> { ex.ToString() };
+        }
+
+        return _response;
+    }
+
     [HttpPost]
     public async Task<ActionResult<ApiResponse>> CreateRoomAsync([FromBody] RoomCreateDTO roomCreateDTO)
     {

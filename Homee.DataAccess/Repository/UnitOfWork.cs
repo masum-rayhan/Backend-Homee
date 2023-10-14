@@ -20,6 +20,8 @@ public class UnitOfWork : IUnitOfWork
 
     public IDeviceStateRepo DeviceStates => new DeviceStateRepo(_db);
 
+    public IRoomRepo Rooms => new RoomRepo(_db);
+
     public async Task SaveAsync()
     {
         await _db.SaveChangesAsync();

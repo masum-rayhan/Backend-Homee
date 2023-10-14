@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Homee.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231011232728_DeviceState")]
-    partial class DeviceState
+    [Migration("20231012184901_device-state")]
+    partial class devicestate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -269,7 +269,6 @@ namespace Homee.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("StateType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Value")

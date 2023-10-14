@@ -12,4 +12,5 @@ public interface IUnitOfWork
 
     IDeviceRepo Devices { get; }
     IDeviceStateRepo DeviceStates { get; }
+    IRoomRepo Rooms { get; }
 }
